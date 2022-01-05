@@ -533,63 +533,330 @@ module.exports = {
                     },
                 ],
 
+                "require-await": "off",
+                /**
+                 * Disallow async functions which have no `await` expression.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/require-await.md
+                 */
                 "@typescript-eslint/require-await": "off",
 
-                "@typescript-eslint/array-type": "off",
+                /**
+                 * Requires using either T[] or Array<T> for arrays.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/array-type.md
+                 */
+                "@typescript-eslint/array-type": ["error", {
+                    "default": "array-simple",
+                }],
+                /**
+                 * Disallows awaiting a value that is not a Thenable.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/await-thenable.md
+                 */
                 "@typescript-eslint/await-thenable": "error",
-                "@typescript-eslint/ban-ts-comment": "error",
-                "@typescript-eslint/ban-types": "off", // not useful in a reusable config
-                "@typescript-eslint/class-literal-property-style": "off",
+                /**
+                 * Bans `@ts-<directive>` comments from being used or requires descriptions after directive
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/ban-ts-comment.md
+                 */
+                "@typescript-eslint/ban-ts-comment": ["error", {
+                    "minimumDescriptionLength": 3,
+                    "ts-check": false,
+                    "ts-expect-error": "allow-with-description",
+                    "ts-ignore": false,
+                    "ts-nocheck": false,
+                }],
+                /**
+                 * Bans specific types from being used.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/ban-types.md
+                 */
+                "@typescript-eslint/ban-types": ["error", {
+                    "types": {
+                        "String": {
+                            "message": 'Use string instead',
+                            "fixWith": 'string',
+                        },
+                        "Boolean": {
+                            "message": 'Use boolean instead',
+                            "fixWith": 'boolean',
+                        },
+                        "Number": {
+                            "message": 'Use number instead',
+                            "fixWith": 'number',
+                        },
+                        "Symbol": {
+                            "message": 'Use symbol instead',
+                            "fixWith": 'symbol',
+                        },
+
+                        "Function": {
+                            "message": [
+                                'The `Function` type accepts any function-like value.',
+                                'It provides no type safety when calling the function, which can be a common source of bugs.',
+                                'It also accepts things like class declarations, which will throw at runtime as they will not be called with `new`.',
+                                'If you are expecting the function to accept certain arguments, you should explicitly define the function shape.',
+                            ].join('\n'),
+                        },
+
+                        // object typing
+                        "Object": {
+                            "message": [
+                                'The `Object` type actually means "any non-nullish value", so it is marginally better than `unknown`.',
+                                '- If you want a type meaning "any object", you probably want `Record<string, unknown>` instead.',
+                                '- If you want a type meaning "any value", you probably want `unknown` instead.',
+                            ].join('\n'),
+                            "fixWith": "Record<string, unknown>",
+                        },
+                        '{}': {
+                            "message": [
+                                '`{}` actually means "any non-nullish value".',
+                                '- If you want a type meaning "any object", you probably want `Record<string, unknown>` instead.',
+                                '- If you want a type meaning "any value", you probably want `unknown` instead.',
+                            ].join('\n'),
+                            "fixWith": "Record<string, unknown>",
+                        },
+                    },
+                }],
+                /**
+                 * Ensures that literals on classes are exposed in a consistent style.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/class-literal-property-style.md
+                 */
+                "@typescript-eslint/class-literal-property-style": "warn",
+                /**
+                 * Enforces consistent usage of type assertions.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/consistent-type-assertions.md
+                 */
                 "@typescript-eslint/consistent-type-assertions": "off",
+                /**
+                 * Requires that `.toString()` is only called on objects which provide useful information when stringified.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-base-to-string.md
+                 */
                 "@typescript-eslint/no-base-to-string": "warn",
-                "@typescript-eslint/no-confusing-void-expression": "off", // honestly, it"s probably a good rule, but I do this all the time so...
+                /**
+                 * Requires expressions of type void to appear in statement position.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-confusing-void-expression.md
+                 */
+                "@typescript-eslint/no-confusing-void-expression": ["error", {
+                    "ignoreArrowShorthand": true,
+                }],
+                /**
+                 * Disallow the `delete` operator with computed key expressions.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-dynamic-delete.md
+                 */
                 "@typescript-eslint/no-dynamic-delete": "error",
-                "@typescript-eslint/no-empty-interface": "error",
-                "@typescript-eslint/no-explicit-any": "error",
+                /**
+                 * Disallow the declaration of empty interfaces.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-empty-interface.md
+                 */
+                "@typescript-eslint/no-empty-interface": "warn",
+                /**
+                 * Disallow usage of the `any` type.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-explicit-any.md
+                 */
+                "@typescript-eslint/no-explicit-any": ["error", {
+                    "fixToUnknown": false, // this may be a good idea, but I want to prefer user defining its own definition.
+                    "ignoreRestArgs": false,
+                }],
+                /**
+                 * Forbids the use of classes as namespaces.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-extraneous-class.md
+                 */
                 "@typescript-eslint/no-extraneous-class": "error", // stay away from classes when you can
-                "@typescript-eslint/no-floating-promises": "warn", // not a bad rule, but can be annoying
+                /**
+                 * Requires Promise-like values to be handled appropriately.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-floating-promises.md
+                 */
+                "@typescript-eslint/no-floating-promises": "off", // not a bad rule, but can be annoying
+                /**
+                 * Disallow iterating over an array with a for-in loop.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-for-in-array.md
+                 */
                 "@typescript-eslint/no-for-in-array": "error",
+                /**
+                 * Disallow usage of the implicit `any` type in catch clauses.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-implicit-any-catch.md
+                 */
                 "@typescript-eslint/no-implicit-any-catch": "warn",
-                "@typescript-eslint/no-inferrable-types": "off", // I personally prefer relying on inference where possible, but I don"t want to lint for it.
+                /**
+                 * Disallows explicit type declarations for variables or parameters initialized to a number, string, or boolean.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-inferrable-types.md
+                 */
+                "@typescript-eslint/no-inferrable-types": "error",
+                /**
+                 * Disallows usage of `void` type outside of generic or return types.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-invalid-void-type.md
+                 */
                 "@typescript-eslint/no-invalid-void-type": "warn",
+                /**
+                 * Enforce valid definition of `new` and `constructor`.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-misused-new.md
+                 */
                 "@typescript-eslint/no-misused-new": "error",
-                "@typescript-eslint/no-misused-promises": [
-                    "warn",
-                    {"checksVoidReturn": false},
-                ],
+                /**
+                 * Avoid using promises in places not designed to handle them.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-misused-promises.md
+                 */
+                "@typescript-eslint/no-misused-promises": "warn",
+                /**
+                 * Disallow the use of custom TypeScript modules and namespaces.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-namespace.md
+                 */
                 "@typescript-eslint/no-namespace": "error",
-                "@typescript-eslint/no-require-imports": "off", // sometimes you can"t do it any other way
+                /**
+                 * Disallows invocation of `require()`.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-require-imports.md
+                 */
+                "@typescript-eslint/no-require-imports": ["warn"], // sometimes you can't do it any other way
+                /**
+                 * Disallow aliasing `this`.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-this-alias.md
+                 */
                 "@typescript-eslint/no-this-alias": "error",
+                /**
+                 * Prevents conditionals where the type is always truthy or always falsy.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-condition.md
+                 */
                 "@typescript-eslint/no-unnecessary-condition": "error",
+                /**
+                 * Warns when a namespace qualifier is unnecessary.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-qualifier.md
+                 */
                 "@typescript-eslint/no-unnecessary-qualifier": "warn", // I"m not sure I understand this one
-                "@typescript-eslint/no-unnecessary-type-arguments": "off",
+                /**
+                 * Enforces that type arguments will not be used if not required.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-type-arguments.md
+                 */
+                "@typescript-eslint/no-unnecessary-type-arguments": "error",
+                /**
+                 * Warns if a type assertion does not change the type of an expression.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-type-assertion.md
+                 */
                 "@typescript-eslint/no-unnecessary-type-assertion": "error",
+                /**
+                 * Disallows unnecessary constraints on generic types.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-type-constraint.md
+                 */
                 "@typescript-eslint/no-unnecessary-type-constraint": "error",
+                /**
+                 * Disallows the use of require statements except in import statements.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-var-requires.md
+                 */
                 "@typescript-eslint/no-var-requires": "error",
-                "@typescript-eslint/non-nullable-type-assertion-style": "off",
+                /**
+                 * Prefers a non-null assertion over explicit type cast when possible.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/non-nullable-type-assertion-style.md
+                 */
+                "@typescript-eslint/non-nullable-type-assertion-style": "warn",
+                /**
+                 * Prefer usage of `as const` over literal type.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-as-const.md
+                 */
                 "@typescript-eslint/prefer-as-const": "error",
-                "@typescript-eslint/prefer-enum-initializers": "error", // makes total sense
-                "@typescript-eslint/prefer-function-type": "off", // though I"m not sure I understand it
-                "@typescript-eslint/prefer-includes": "error", // normally I wouldn"t but includes is just so much better
+                /**
+                 * Prefer initializing each enums member value.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-enum-initializers.md
+                 *
+                 * When using enums, we don't care. In fact, all calls to enums should be `MyEnum.KEY` and not `1`.
+                 */
+                "@typescript-eslint/prefer-enum-initializers": "off",
+                /**
+                 * Use function types instead of interfaces with call signatures.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-function-type.md
+                 */
+                "@typescript-eslint/prefer-function-type": "warn", // though I'm not sure if I understand it
+                /**
+                 * Enforce `includes` method over `indexOf` method.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-includes.md
+                 */
+                "@typescript-eslint/prefer-includes": "error",
+                /**
+                 * Require that all enum members be literal values to prevent unintended enum member name shadow issues.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-literal-enum-member.md
+                 */
                 "@typescript-eslint/prefer-literal-enum-member": "error",
+                /**
+                 * Require the use of the `namespace` keyword instead of the `module` keyword to declare custom TypeScript modules.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-namespace-keyword.md
+                 */
                 "@typescript-eslint/prefer-namespace-keyword": "error",
+                /**
+                 * Enforce the usage of the nullish coalescing operator instead of logical chaining.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-nullish-coalescing.md
+                 */
                 "@typescript-eslint/prefer-nullish-coalescing": "error",
+                /**
+                 * Prefer using concise optional chain expressions instead of chained logical ands.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-optional-chain.md
+                 */
                 "@typescript-eslint/prefer-optional-chain": "error",
-                "@typescript-eslint/prefer-readonly": "off",
+                /**
+                 * Requires that private members are marked as readonly if they're never modified outside of the constructor.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-readonly.md
+                 */
+                "@typescript-eslint/prefer-readonly": "warn",
+                /**
+                 * Prefer using type parameter when calling `Array#reduce` instead of casting.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-reduce-type-parameter.md
+                 */
                 "@typescript-eslint/prefer-reduce-type-parameter": "warn",
-                "@typescript-eslint/prefer-regexp-exec": "off",
+                /**
+                 * Enforce that `RegExp#exec` is used instead of `String#match` if no global flag is provided.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-regexp-exec.md
+                 */
+                "@typescript-eslint/prefer-regexp-exec": "warn",
+                /**
+                 * Enforce the use of `String#startsWith` and `String#endsWith` instead of other equivalent methods of checking substrings.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-string-starts-ends-with.md
+                 */
                 "@typescript-eslint/prefer-string-starts-ends-with": "error",
+                /**
+                 * Recommends using @ts-expect-error over @ts-ignore.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-ts-expect-error.md
+                 */
                 "@typescript-eslint/prefer-ts-expect-error": "error",
+                /**
+                 * Requires any function or method that returns a Promise to be marked async.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/promise-function-async.md
+                 */
                 "@typescript-eslint/promise-function-async": "off",
-                "@typescript-eslint/require-array-sort-compare": "off",
+                /**
+                 * Requires `Array#sort` calls to always provide a `compareFunction`.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/require-array-sort-compare.md
+                 */
+                "@typescript-eslint/require-array-sort-compare": "warn",
+                /**
+                 * When adding two variables, operands must both be of type number or of type string.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/restrict-plus-operands.md
+                 */
                 "@typescript-eslint/restrict-plus-operands": "error",
+                /**
+                 * Enforce template literal expressions to be of string type.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/restrict-template-expressions.md
+                 */
                 "@typescript-eslint/restrict-template-expressions": "off",
+                /**
+                 * Restricts the types allowed in boolean expressions.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/strict-boolean-expressions.md
+                 */
                 "@typescript-eslint/strict-boolean-expressions": "off",
+                /**
+                 * Exhaustiveness checking in switch with union type.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/switch-exhaustiveness-check.md
+                 */
                 "@typescript-eslint/switch-exhaustiveness-check": "error",
+                /**
+                 * Sets preference level for triple slash directives versus ES6-style import declarations.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/triple-slash-reference.md
+                 */
                 "@typescript-eslint/triple-slash-reference": "error",
+                /**
+                 * Enforces unbound methods are called with their expected scope.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/unbound-method.md
+                 */
                 "@typescript-eslint/unbound-method": "error",
 
                 //  variables
+                /**
+                 * Warns for any two overloads that could be unified into one by using a union or an optional/rest parameter.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/unified-signatures.md
+                 */
                 "@typescript-eslint/unified-signatures": "warn",
             },
         },
