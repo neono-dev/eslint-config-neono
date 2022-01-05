@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/neono/eslint-config-neono"
+    "url": "https://github.com/neono-dev/eslint-config-neono"
   },
   "keywords": [
     "eslint",
@@ -24,9 +24,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/neono/eslint-config-neono/issues"
+    "url": "https://github.com/neono-dev/eslint-config-neono/issues"
   },
-  "homepage": "https://github.com/neono/eslint-config-neono#readme",
+  "homepage": "https://github.com/neono-dev/eslint-config-neono#readme",
   "dependencies": {
     "@babel/core": "^7.16.7",
     "@babel/eslint-parser": "^7.16.5",
