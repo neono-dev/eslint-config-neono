@@ -2,7 +2,7 @@
 
 const readPkgUp = require("read-pkg-up")
 
-const {disableRules, mapDeprecatedRules} = require("./utils")
+const disableRules = require("./utils")
 
 let hasJestDom = false
 let hasTestingLibrary = false
@@ -29,7 +29,7 @@ try {
 const rules = {
     "react/display-name": "off", // We don't need a display name in test files
 
-    ...mapDeprecatedRules(["jest/no-expect-resolves"]),
+    ...disableRules(["jest/no-expect-resolves"]),
     /**
      * Have control over `test` and `it` usages.
      * https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/consistent-test-it.md
