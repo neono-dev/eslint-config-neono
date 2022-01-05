@@ -1,27 +1,16 @@
-import {useCallback} from "react";
-
 export default Users
 
 type Props = {
-  nameFilter: string
-  isEnabled: boolean
+  nameFilter: string;
 }
 
-function Users({nameFilter, isEnabled}: Props) {
+function Users({nameFilter}: Props) {
   const users = [{friends: ['Albert', 'Nancy'], id: 23, name: 'Janice'}].filter(
     ({name}) => name.toLowerCase().includes(nameFilter),
   )
 
-  const onChange = useCallback(() => {
-    console.log(isEnabled)
-  }, [isEnabled])
-
   return (
     <div className="user-list" data-testid="users" id="users-section">
-      <input onChange={onChange} />
-      <button>Submit</button>
-      <button>Submit</button>
-      <button>Submit</button>
       {users.map(user => (
         <div key={user.id}>
           {user.name} is friends with {user.friends.join(', ')}

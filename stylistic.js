@@ -272,25 +272,121 @@ module.exports = {
                 "init-declarations": "off",
                 "@typescript-eslint/init-declarations": "off",
 
+                /**
+                 * Require that member overloads be consecutive.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/adjacent-overload-signatures.md
+                 */
                 "@typescript-eslint/adjacent-overload-signatures": "error",
+                /**
+                 * Bans `// tslint:<rule-flag>` comments from being used.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/ban-tslint-comment.md
+                 */
                 "@typescript-eslint/ban-tslint-comment": "error",
+                /**
+                 * Enforce or disallow the use of the record type.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/consistent-indexed-object-style.md
+                 */
                 "@typescript-eslint/consistent-indexed-object-style": "off",
-                "@typescript-eslint/consistent-type-definitions": "off",
-                "@typescript-eslint/consistent-type-imports": "off", // I think I prefer typed imports, but you can"t always use them
+                /**
+                 * Consistent with type definition either interface or type.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/consistent-type-definitions.md
+                 */
+                "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+                /**
+                 * Enforces consistent usage of type imports.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/consistent-type-imports.md
+                 */
+                "@typescript-eslint/consistent-type-imports": ["error", {
+                    "prefer": "type-imports",
+                }],
+                /**
+                 * Require explicit return types on functions and class methods.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/explicit-function-return-type.md
+                 */
                 "@typescript-eslint/explicit-function-return-type": "off",
+                /**
+                 * Require explicit return and argument types on exported functions' and classes' public class methods.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/explicit-module-boundary-types.md
+                 */
                 "@typescript-eslint/explicit-module-boundary-types": "off",
-                "@typescript-eslint/member-delimiter-style": "off",
+                /**
+                 * Require a specific member delimiter style for interfaces and type literals.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/member-delimiter-style.md
+                 */
+                "@typescript-eslint/member-delimiter-style": ["error", {
+                    "multiline": {
+                        "delimiter": "semi",
+                        "requireLast": true,
+                    },
+                    "singleline": {
+                        "delimiter": "semi",
+                        "requireLast": true,
+                    },
+                }],
+                /**
+                 * Require a consistent member declaration order.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/member-ordering.md
+                 */
                 "@typescript-eslint/member-ordering": "off",
-                "@typescript-eslint/method-signature-style": "off",
+                /**
+                 * Enforces using a particular method signature syntax.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/method-signature-style.md
+                 */
+                "@typescript-eslint/method-signature-style": ["warn", "property"],
+                /**
+                 * Enforces naming conventions for everything across a codebase.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/naming-convention.md
+                 *
+                 * May be good in projects, but not in a config.
+                 */
                 "@typescript-eslint/naming-convention": "off",
-                "@typescript-eslint/no-confusing-non-null-assertion": "off", // prettier reformats their "correct" example anyway 🤷‍♂️
+                /**
+                 * Disallow non-null assertion in locations that may be confusing.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-confusing-non-null-assertion.md
+                 */
+                "@typescript-eslint/no-confusing-non-null-assertion": "warn",
+                /**
+                 * Disallow extra non-null assertion.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-extra-non-null-assertion.md
+                 */
                 "@typescript-eslint/no-extra-non-null-assertion": "error",
+                /**
+                 * Disallows non-null assertions using the `!` postfix operator.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-non-null-assertion.md
+                 */
                 "@typescript-eslint/no-non-null-assertion": "error",
-                "@typescript-eslint/no-parameter-properties": "error", // yeah, I don"t like this feature
+                /**
+                 * Disallow the use of parameter properties in class constructors.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-parameter-properties.md
+                 */
+                "@typescript-eslint/no-parameter-properties": "off",
+                /**
+                 * Disallow the use of type aliases.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-type-alias.md
+                 */
                 "@typescript-eslint/no-type-alias": "off",
+                /**
+                 * Flags unnecessary equality comparisons against boolean literals.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-boolean-literal-compare.md
+                 */
                 "@typescript-eslint/no-unnecessary-boolean-literal-compare": "warn",
-                "@typescript-eslint/prefer-for-of": "off", // I prefer for of, but I don"t want to lint for it
-                "@typescript-eslint/sort-type-union-intersection-members": "off",
+                /**
+                 * Prefer a ‘for-of’ loop over a standard ‘for’ loop if the index is only used to access the array being iterated.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-for-of.md
+                 */
+                "@typescript-eslint/prefer-for-of": "warn",
+                /**
+                 * Enforces that members of a type union/intersection are sorted alphabetically.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/sort-type-union-intersection-members.md
+                 */
+                "@typescript-eslint/sort-type-union-intersection-members": "warn",
+                /**
+                 * Requires type annotations to exist.
+                 * https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/typedef.md
+                 *
+                 * Instead of enabling typedef, it is generally recommended using the --noImplicitAny and --strictPropertyInitialization
+                 * compiler options to enforce type annotations only when useful.
+                 */
                 "@typescript-eslint/typedef": "off",
             },
         },

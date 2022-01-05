@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 module.exports = {
-    extends: ['./non-rules-config.js', 'prettier'],
+    extends: ['./non-rules-config.js'],
     rules: {
         /**
          * Require braces in arrow function body.
