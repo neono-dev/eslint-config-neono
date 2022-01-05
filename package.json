@@ -1,0 +1,70 @@
+{
+  "name": "eslint-config-neono",
+  "version": "0.0.1",
+  "author": "Donovan Benfouzari <donovan@neono.fr> (https://neono.fr)",
+  "main": "index.js",
+  "scripts": {
+    "find-new-rules": "npm-run-all --parallel find-new-rules:*",
+    "find-new-rules:main": "eslint-find-rules --unused ./index.js",
+    "lint": "eslint --config index.js . --ext .js,.jsx,.ts,.tsx",
+    "test": "npm-run-all --parallel lint find-new-rules",
+    "validate": "npm-run-all --parallel lint test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neono/eslint-config-neono"
+  },
+  "keywords": [
+    "eslint",
+    "eslintconfig",
+    "config",
+    "neono",
+    "javascript",
+    "styleguide"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/neono/eslint-config-neono/issues"
+  },
+  "homepage": "https://github.com/neono/eslint-config-neono#readme",
+  "dependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/eslint-parser": "^7.16.5",
+    "@babel/eslint-plugin": "^7.16.5",
+    "@babel/preset-react": "^7.16.7",
+    "@typescript-eslint/eslint-plugin": "^5.9.0",
+    "@typescript-eslint/parser": "^5.9.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "read-pkg-up": "^7.0.1",
+    "semver": "^7.3.5"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.38",
+    "eslint": "^8.6.0",
+    "eslint-find-rules": "^4.0.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.5.1",
+    "react": "^17.0.2",
+    "typescript": "^4.5.4"
+  },
+  "peerDependencies": {
+    "eslint": "^8.0.0",
+    "typescript": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  },
+  "eslintConfig": {
+    "extends": "./index.js"
+  },
+  "eslintIgnore": [
+    "node_modules",
+    "coverage",
+    "dist"
+  ]
+}
