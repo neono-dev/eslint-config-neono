@@ -38,11 +38,11 @@ Then add the extends to your `.eslintrc.js`:
 
 ```javascript
 module.exports = {
-  extends: 'neono',
+  extends: "neono",
   rules: {
     // your overrides
   },
-}
+};
 ```
 
 ### Other configs
@@ -54,17 +54,23 @@ You can use them standalone:
 
 ```javascript
 module.exports = {
-  extends: 'neono/<config-name>',
-}
+  extends: "neono/<config-name>",
+};
 ```
 
 Or in combination with the base config (recommended)
 
 ```javascript
 module.exports = {
-  extends: ['neono', 'neono/<config-name>'],
-}
+  extends: ["neono", "neono/<config-name>"],
+};
 ```
+
+Config list :
+
+- neono
+- neono/jest
+- neono/react
 
 **Note**: Due to [this bug](https://github.com/eslint/eslint/issues/3458) you
 need to have the associated plugins installed to make things work. I recommend
@@ -102,45 +108,36 @@ for it.
 ```javascript
 module.exports = {
   extends: [
-    'neono/possible-errors',
-    'neono/best-practices',
-    'neono/es6/possible-errors',
-    'neono/import',
-    'neono/jest',
+    "neono/possible-errors",
+    "neono/best-practices",
+    "neono/es6/possible-errors",
+    "neono/import",
+    "neono/jest",
   ],
   rules: {
     /* custom rules */
   },
-}
+};
 ```
 
-[//]: # ()
-[//]: # (## Issues)
-
-[//]: # ()
-[//]: # (_Looking to contribute? Look for the [Good First Issue][good-first-issue])
-
-[//]: # (label._)
-
-[//]: # ()
-[//]: # (### 🐛 Bugs)
-
-[//]: # ()
-[//]: # (Please file an issue for bugs, missing documentation, or unexpected behavior.)
-
-[//]: # ()
-[//]: # ([**See Bugs**][bugs])
-
-[//]: # ()
-[//]: # (### 💡 Feature Requests)
-
-[//]: # ()
-[//]: # (Please file an issue to suggest new features. Vote on feature requests by adding)
-
-[//]: # (a 👍. This helps maintainers prioritize what to work on.)
-
-[//]: # ()
-[//]: # ([**See Feature Requests**][requests])
+[//]: #
+[//]: # "## Issues"
+[//]: #
+[//]: # "_Looking to contribute? Look for the [Good First Issue][good-first-issue]"
+[//]: # "label._"
+[//]: #
+[//]: # "### 🐛 Bugs"
+[//]: #
+[//]: # "Please file an issue for bugs, missing documentation, or unexpected behavior."
+[//]: #
+[//]: # "[**See Bugs**][bugs]"
+[//]: #
+[//]: # "### 💡 Feature Requests"
+[//]: #
+[//]: # "Please file an issue to suggest new features. Vote on feature requests by adding"
+[//]: # "a 👍. This helps maintainers prioritize what to work on."
+[//]: #
+[//]: # "[**See Feature Requests**][requests]"
 
 ## LICENSE
 
